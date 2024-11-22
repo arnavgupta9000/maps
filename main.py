@@ -68,20 +68,6 @@ map2 = np.array([
 # Thread-safe updates queue
 updates_queue = Queue()
 
-def dummy_a_star():
-    """Simulates A* search by adding dummy updates."""
-    updates_queue.put(("explored", (0, 1)))
-    time.sleep(2)
-    updates_queue.put(("explored", (2, 2)))
-    time.sleep(2)
-    updates_queue.put(("explored", (3, 3)))
-    time.sleep(2)
-    updates_queue.put(("explored", (4, 4)))
-    time.sleep(2)
-    updates_queue.put(("explored", (5, 5)))
-    time.sleep(2)
-    #updates_queue.put(("path", [(1,1), (2, 2), (3, 3), (4,4), (5,5)]))
-
 class A_star(object):
     def __init__(self,map_p):
         self.map = map_p
