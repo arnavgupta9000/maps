@@ -2,12 +2,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from threading import Thread
+import heapq
 from queue import Queue
 import time
 import matplotlib.colors as mcolors
 
 
-# Map definition (-1 = start, -2 = goal, 1 = open, 0 = wall)
+#Map definition (-1 = start, -2 = goal, 1 = open, 0 = wall)
 map2 = np.array([
     [-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -31,6 +32,31 @@ map2 = np.array([
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, -2]
 ])
 
+# map2 = np.array([
+#     [-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+#     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+#     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+#     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+#     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2],
+# ])
+
+
+
 # Thread-safe updates queue
 updates_queue = Queue()
 
@@ -48,9 +74,72 @@ def dummy_a_star():
     time.sleep(2)
     #updates_queue.put(("path", [(1,1), (2, 2), (3, 3), (4,4), (5,5)]))
 
+class A_star(object):
+    def __init__(self,map_p,start, goal):
+        self.grid = []
+        self.map = map_p
+        self.start = start # (r,c)
+        self.goal = goal # (r,c)
+    
+    def generate_neighbhors(self, node):
+        # a node will be a a row and a column
+        r,c = node # extract the row and the column
+        children = []
+        if r + 1 <= 19 and self.map[r+1][c] != 0 and self.map[r+1][c] != 6: # already explored
+            children.append((r+1,c))
+        if c + 1 <= 19 and self.map[r][c+1] != 0 and self.map[r][c+1] != 6: # already explored
+            children.append((r, c+1))
+        if r - 1 >=0 and self.map[r-1][c] != 0 and self.map[r-1][c] != 6: # already explored
+            children.append((r-1, c))
+        if c - 1 >= 0 and self.map[r][c-1] != 0 and self.map[r][c-1] != 6: # already explored
+            children.append((r, c-1))
+        
+        return children
+    
+    def h_value(self, r, c):
+        # manhattan distance
+        return abs(r - self.goal[0]) + abs(c - self.goal[1])
+
+    def g_value(self, r, c): 
+        return abs(r-self.start[0]) + abs(c-self.start[1])
+
+    def f_value(self, r,c):
+        return self.g_value(r, c) + self.h_value(r, c)
+
+    
+    def run(self):
+        open = []
+        heapq.heappush(open, (0, self.start))
+        closed = {self.start: 0}
+        
+        while len(open) > 0:
+
+            _, n = heapq.heappop(open)
+            updates_queue.put(("explored", n))
+            time.sleep(0.1)
+
+            if n == self.goal:
+                return (True, closed[self.goal])
+            
+            
+            for n_prime in self.generate_neighbhors(n):
+                r,c = n_prime
+                # f=g+h
+                cost = self.h_value(r,c)
+                if n_prime not in closed or cost < closed[n_prime]:
+                    closed[n_prime] = closed[n] + 1 # manhattan distance is just +1 for any direction
+                    heapq.heappush(open, (cost, n_prime))
+
+        return (False, -1)
+
+
+
 # Start A* simulation in a thread
-thread = Thread(target=dummy_a_star)
+a_star= A_star(map2, (0,0), (19,19))
+thread = Thread(target=a_star.run)
 thread.start()
+
+
 
 # Define a custom colormap for your map
 #Be in increasing order.
@@ -73,18 +162,22 @@ norm = mcolors.BoundaryNorm(bounds, cmap.N)
 fig, ax = plt.subplots(figsize=(10, 10))
 ax.set_title("A* Pathfinding Visualization")
 img = ax.imshow(map2, cmap=cmap, norm=norm)
+plt.ion()
+plt.show()
+
+
+
 
 def update(frame):
     """Update map visualization based on queue data."""
     while not updates_queue.empty():
-        update_type, cell = updates_queue.get()
-       
-        r,c = cell
-        map2[r][c] = 6  # Light blue for explored
-
+        _, cell = updates_queue.get()
+        r, c = cell
+        map2[r][c] = 6  # blue for explored
     img.set_array(map2)
-
     return [img]
 
-ani = animation.FuncAnimation(fig, update, interval=2000, blit=True)
+ani = animation.FuncAnimation(fig, update, interval=100, blit=True)
+
+plt.ioff()
 plt.show()
