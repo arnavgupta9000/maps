@@ -9,28 +9,28 @@ import matplotlib.colors as mcolors
 
 
 #Map definition (-1 = start, -2 = goal, 1 = open, 0 = wall)
-map2 = np.array([
-    [-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, -2]
-])
+# map2 = np.array([
+#     [-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+#     [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+#     [0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1],
+#     [0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+#     [0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+#     [0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+#     [0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0],
+#     [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+#     [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1],
+#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, -2]
+# ])
 
 # map2 = np.array([
 #     [-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -55,6 +55,14 @@ map2 = np.array([
 #     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2],
 # ])
 
+map2 = np.array([
+    [1,1,1,1,1],
+    [1,1,-1,1,1],
+    [1,1,1,1,1],
+    [1,0,0,0,1],
+    [1,1,-2,1,1]
+])
+
 
 
 # Thread-safe updates queue
@@ -75,19 +83,35 @@ def dummy_a_star():
     #updates_queue.put(("path", [(1,1), (2, 2), (3, 3), (4,4), (5,5)]))
 
 class A_star(object):
-    def __init__(self,map_p,start, goal):
-        self.grid = []
+    def __init__(self,map_p):
         self.map = map_p
+        start = self.find_state('start')
+        goal = self.find_state('goal')
+        self.max_r, self.max_c = self.num_rows_cols()
+        self.grid = []
         self.start = start # (r,c)
         self.goal = goal # (r,c)
     
-    def generate_neighbhors(self, node):
+    def find_state(self, state):
+        if state == "start":
+            state = -1
+        if state == "goal":
+            state = -2
+        for i in range(len(self.map)):
+            for j in range(len(self.map[i])):
+                if self.map[i][j] == state:
+                    return (i, j)
+    
+    def num_rows_cols(self):
+        return (len(self.map) - 1, len(self.map[0]) - 1)
+    
+    def generate_neighbhors(self, node, max_r, max_c):
         # a node will be a a row and a column
         r,c = node # extract the row and the column
         children = []
-        if r + 1 <= 19 and self.map[r+1][c] != 0 and self.map[r+1][c] != 6: # already explored
+        if r + 1 <= max_r and self.map[r+1][c] != 0 and self.map[r+1][c] != 6: # already explored
             children.append((r+1,c))
-        if c + 1 <= 19 and self.map[r][c+1] != 0 and self.map[r][c+1] != 6: # already explored
+        if c + 1 <= max_c and self.map[r][c+1] != 0 and self.map[r][c+1] != 6: # already explored
             children.append((r, c+1))
         if r - 1 >=0 and self.map[r-1][c] != 0 and self.map[r-1][c] != 6: # already explored
             children.append((r-1, c))
@@ -122,7 +146,7 @@ class A_star(object):
                 return (True, closed[self.goal])
             
             
-            for n_prime in self.generate_neighbhors(n):
+            for n_prime in self.generate_neighbhors(n, self.max_r, self.max_c):
                 r,c = n_prime
                 # f=g+h
                 cost = self.h_value(r,c)
@@ -135,7 +159,7 @@ class A_star(object):
 
 
 # Start A* simulation in a thread
-a_star= A_star(map2, (0,0), (19,19))
+a_star= A_star(map2)
 thread = Thread(target=a_star.run)
 thread.start()
 
@@ -173,7 +197,8 @@ def update(frame):
     while not updates_queue.empty():
         _, cell = updates_queue.get()
         r, c = cell
-        map2[r][c] = 6  # blue for explored
+        if map2[r][c] != -1 and map2[r][c] != -2:
+            map2[r][c] = 6  # blue for explored
     img.set_array(map2)
     return [img]
 
