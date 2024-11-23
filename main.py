@@ -63,6 +63,18 @@ map2 = np.array([
 #     [1,1,-2,1,1]
 # ])
 
+# map2 = np.array([
+#     [-1,1,1,1,1,1,1,1,1,1],
+#     [1,0,0,0,0,0,0,1,0,1],
+#     [1,1,1,1,1,0,0,1,0,1],
+#     [1,0,0,0,1,1,1,1,0,1],
+#     [1,0,0,0,1,0,0,1,0,1],
+#     [1,0,0,0,1,1,1,1,0,1],
+#     [1,0,0,0,0,0,0,1,0,1],
+#     [1,0,0,0,0,0,0,1,1,1],
+#     [1,0,0,0,0,0,0,0,0,0],
+#     [1,1,1,1,1,1,1,1,1,-2]
+# ])
 
 
 # Thread-safe updates queue
@@ -151,7 +163,6 @@ class A_star(object):
         path = [self.goal] # store the goal
 
         while True:
-            print(came_from[path[-1]])
             path.append(came_from[path[-1]])
             if path[-1] == self.start: # after appended value
                 break
@@ -160,7 +171,7 @@ class A_star(object):
         for i in path:
             updates_queue.put(("path", i))
             time.sleep(0.1)
-        print(path)
+        print(len(path))
         return
 
 
