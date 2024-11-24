@@ -32,28 +32,28 @@ map2 = np.array([
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, -2]
 ])
 
-# map2 = np.array([
-#     [-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-#     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-#     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-#     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-#     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2],
-# ])
+map2 = np.array([
+    [-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2],
+])
 
 # map2 = np.array([
 #     [1,1,1,1,1],
@@ -74,6 +74,30 @@ map2 = np.array([
 #     [1,0,0,0,0,0,0,1,1,1],
 #     [1,0,0,0,0,0,0,0,0,0],
 #     [1,1,1,1,1,1,1,1,1,-2]
+# ])
+
+# map2 = np.array([
+#     [1,1,1,1,1],
+#     [1,1,-2,1,1],
+#     [0,0,0,0,1],
+#     [1,1,1,1,1],
+#     [1,1,1,1,1],
+#     [1,1,1,1,1],
+#     [1,1,1,1,1],
+#     [1,1,1,1,1],
+#     [1,1,1,1,1],
+#     [1,1,1,1,1],
+#     [1,1,1,1,1],
+#     [1,1,1,1,1],
+#     [1,1,1,1,1],
+#     [1,1,1,1,1],
+#     [1,1,1,1,1],
+#     [1,1,1,1,1],
+#     [1,1,-1,1,1],
+#     [1,1,1,1,1],
+#     [1,1,1,1,1],
+#     [1,1,1,1,1],
+#     [1,1,0,1,1]
 # ])
 
 
@@ -118,45 +142,47 @@ class A_star(object):
         
     
     def h_value(self, r, c):
-        # manhattan distance
-        return abs(r - self.goal[0]) + abs(c - self.goal[1])
+        # ecludian distance
+        #return ((r - self.goal[0]) ** 2 + (c - self.goal[1]) ** 2) ** 0.5
+        return  abs(r - self.goal[0]) +abs(c-self.goal[1]) 
 
-    def g_value(self, r, c): 
-        return abs(r-self.start[0]) + abs(c-self.start[1])
 
-    def f_value(self, r,c):
-        return self.g_value(r, c) + self.h_value(r, c)
 
     
     def run(self):
-        open = []
-        heapq.heappush(open, (0, self.start))
-        closed = {self.start: 0}
-        came_from = {} # to reconstruct the path
-
         
-        while len(open) > 0:
+        open = []
+        heapq.heappush(open, (0, -0, self.start))  # f-value is initially 0 for the start
+        closed = {self.start: 0}
+        came_from = {}  # to reconstruct the path
 
-            _, n = heapq.heappop(open)
+        while len(open) > 0:
+            _, _, n = heapq.heappop(open)
             updates_queue.put(("explored", n))
-            time.sleep(0.1)
+            time.sleep(0.03)
 
             if n == self.goal:
-                #return (True, closed[self.goal])
                 self.reconstruct_path(came_from)
                 return
             
-            
+            cost = closed[n]
             for n_prime in self.generate_neighbhors(n, self.max_r, self.max_c):
-                r,c = n_prime
-                # f=g+h
-                cost = self.h_value(r,c)
-                if n_prime not in closed or cost < closed[n_prime]:
-                    closed[n_prime] = closed[n] + 1 # manhattan distance is just +1 for any direction
+                r, c = n_prime
+                # Calculate g(n') and f(n') = g(n') + h(n')
+                g_n = cost + 1  # g(n') = g(n) + 1
+                h_n = self.h_value(r, c)  # heuristic value
+                f_n = g_n + h_n  # total estimated cost
+                #print(f_n, n_prime)
+
+                
+                # Check if the node should be updated in closed or added to open
+                if n_prime not in closed or g_n < closed[n_prime]:
+                    closed[n_prime] = g_n  # Update g-value
                     came_from[n_prime] = n
-                    heapq.heappush(open, (cost, n_prime))
+                    heapq.heappush(open, (f_n, -g_n, n_prime))  # Use f-value as priority
 
         return (False, -1)
+
 
     def reconstruct_path(self, came_from):
         #print(came_from)
@@ -170,7 +196,7 @@ class A_star(object):
         path = path[::-1]
         for i in path:
             updates_queue.put(("path", i))
-            time.sleep(0.1)
+            time.sleep(0.03)
         print(len(path))
         return
 
@@ -199,6 +225,8 @@ bounds = [-2, -1, 0.5, 0.5, 0.9, 1.5]
 cmap = mcolors.ListedColormap(['red', 'green', 'black',  'white', 'blue', 'orange'])
 bounds = [-2, -1, 0, 1, 4, 10, 14]  # need the 2 to close the bounds
 norm = mcolors.BoundaryNorm(bounds, cmap.N)
+
+
 
 # Update animation setup
 fig, ax = plt.subplots(figsize=(10, 10))
