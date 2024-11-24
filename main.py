@@ -6,6 +6,7 @@ import heapq
 from queue import Queue
 import time
 import matplotlib.colors as mcolors
+import random
 
 
 #Map definition (-1 = start, -2 = goal, 1 = open, 0 = wall)
@@ -32,28 +33,28 @@ map2 = np.array([
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, -2]
 ])
 
-map2 = np.array([
-    [-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2],
-])
+# map2 = np.array([
+#     [-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+#     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+#     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+#     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+#     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2],
+# ])
 
 # map2 = np.array([
 #     [1,1,1,1,1],
@@ -127,7 +128,7 @@ class A_star(object):
     def num_rows_cols(self):
         return (len(self.map) - 1, len(self.map[0]) - 1)
     
-    def generate_neighbhors(self, node, max_r, max_c):
+    def generate_neighbhors(self, node):
         # a node will be a a row and a column
         r,c = node # extract the row and the column
         directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
@@ -159,14 +160,14 @@ class A_star(object):
         while len(open) > 0:
             _, _, n = heapq.heappop(open)
             updates_queue.put(("explored", n))
-            time.sleep(0.03)
+            time.sleep(0.07)
 
             if n == self.goal:
                 self.reconstruct_path(came_from)
                 return
             
             cost = closed[n]
-            for n_prime in self.generate_neighbhors(n, self.max_r, self.max_c):
+            for n_prime in self.generate_neighbhors(n):
                 r, c = n_prime
                 # Calculate g(n') and f(n') = g(n') + h(n')
                 g_n = cost + 1  # g(n') = g(n) + 1
@@ -196,7 +197,7 @@ class A_star(object):
         path = path[::-1]
         for i in path:
             updates_queue.put(("path", i))
-            time.sleep(0.03)
+            time.sleep(0.07)
         print(len(path))
         return
 
@@ -206,6 +207,75 @@ class A_star(object):
 a_star= A_star(map2)
 thread = Thread(target=a_star.run)
 thread.start()
+
+class Map_generator(object):
+
+    def __init__(self):
+        self.rows = random.randint(5,100)
+        self.cols = random.randint(5,100)
+        self.prev_h = 0 # store the prev heuristic
+
+        self.map = [[2 for _ in range(self.cols)] for _ in range(self.cols)]
+        self.make()
+
+
+        self.path()
+
+
+    def make(self):
+
+        self.start = (random.randint(0, self.rows - 1),random.randint(0, self.rows - 1))
+        self.goal = (random.randint(0, self.rows - 1),random.randint(0, self.rows - 1))
+        if self.start == self.goal:
+            self.make()
+
+    def heuristic(self, r,c): 
+        # calculate how far the current state is from the goal
+        return  abs(r - self.goal[0]) +abs(c-self.goal[1]) 
+
+
+    
+    def path(self):
+        # make a path using dfs
+        directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+        h_holder = 0 # if this goes below -2 -> move until it hits 0 again, scale by a factor of 0.5
+        h_cup = False # toggle to only generate better paths
+        found = False
+        location = self.start
+        while not found:
+            if not h_cup:
+                choice = directions[random.randint(0,3)] # choose a random way to go
+                r,c = choice # get the row and column of the way we moved
+                r, c = location[0] + choice[0], location[1] + choice[1] # going to the new location
+                self.map[r][c] = 1 # this is a valid path
+                h = self.heuristic(r,c)
+                if not self.prev_h == 0:
+    
+                    # see if this h was better than the previous one
+                    if h < self.prev_h:
+                        h_holder +=1
+                    else:
+                        # a worse decision was made
+                        h_holder -=1
+
+                    if h_holder <= -2:
+                        h_cup = True
+                self.prev_h = h
+                
+
+            else:
+                while h_cup < 0:
+                    # go the best way to get to the goal by a factor of 2
+                    for r,c in directions:
+                        h = self.heuristic(r,c)
+                        if h < self.prev_h: # good go this way
+                            self.map[r][c] = 1
+                            h_holder += 0.5
+                            self.prev_h = h
+
+
+            
+
 
 
 
