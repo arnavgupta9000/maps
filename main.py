@@ -106,7 +106,7 @@ map2 = np.array([
 updates_queue = Queue()
 
 class A_star(object):
-    def __init__(self,map_p):
+    def __init__(self,map_p, time_start):
         self.map = map_p
         start = self.find_state('start')
         goal = self.find_state('goal')
@@ -114,6 +114,7 @@ class A_star(object):
         self.grid = []
         self.start = start # (r,c)
         self.goal = goal # (r,c)
+        self.time_start = time_start
     
     def find_state(self, state):
         if state == "start":
@@ -145,7 +146,7 @@ class A_star(object):
     def h_value(self, r, c):
         # ecludian distance
         #return ((r - self.goal[0]) ** 2 + (c - self.goal[1]) ** 2) ** 0.5
-        return  abs(r - self.goal[0]) +abs(c-self.goal[1]) 
+        return  100 * abs(r - self.goal[0]) +abs(c-self.goal[1]) 
 
 
 
@@ -160,7 +161,8 @@ class A_star(object):
         while len(open) > 0:
             _, _, n = heapq.heappop(open)
             updates_queue.put(("explored", n))
-            time.sleep(0.07)
+            #time.sleep(0.07)
+            time.sleep(0.01)
 
             if n == self.goal:
                 self.reconstruct_path(came_from)
@@ -197,37 +199,41 @@ class A_star(object):
         path = path[::-1]
         for i in path:
             updates_queue.put(("path", i))
-            time.sleep(0.07)
+            time.sleep(0.01)
         print(len(path))
+        print(time.time() - self.time_start)
         return
 
 
 
-# Start A* simulation in a thread
-a_star= A_star(map2)
-thread = Thread(target=a_star.run)
-thread.start()
+
+
 
 class Map_generator(object):
 
     def __init__(self):
-        self.rows = random.randint(5,100)
-        self.cols = random.randint(5,100)
-        self.prev_h = 0 # store the prev heuristic
-
-        self.map = [[2 for _ in range(self.cols)] for _ in range(self.cols)]
+        self.rows = random.randint(50,200)
+        self.cols = random.randint(50,200)
+        self.prev_h = float('inf') # store the prev heuristic
+        self.map = [[0 for _ in range(self.cols)] for _ in range(self.rows)]
         self.make()
-
-
         self.path()
 
 
     def make(self):
 
-        self.start = (random.randint(0, self.rows - 1),random.randint(0, self.rows - 1))
-        self.goal = (random.randint(0, self.rows - 1),random.randint(0, self.rows - 1))
-        if self.start == self.goal:
-            self.make()
+        self.start = (random.randint(0, self.rows - 1), random.randint(0, self.cols - 1))
+        self.goal = (random.randint(0, self.rows - 1), random.randint(0, self.cols - 1))
+        while self.start == self.goal:  # Ensure start and goal are not the same
+            self.goal = (random.randint(0, self.rows - 1), random.randint(0, self.cols - 1))
+        #self.start = (self.start[0] - 1, self.start[1] - 1)
+        #self.goal = (self.goal[0] - 1, self.goal[1] - 1)
+
+
+            
+        self.map[self.start[0]][self.start[1]] = 1 # mark start and end nodes as visited
+        self.map[self.goal[0]][self.goal[1]] = 1
+
 
     def heuristic(self, r,c): 
         # calculate how far the current state is from the goal
@@ -242,37 +248,70 @@ class Map_generator(object):
         h_cup = False # toggle to only generate better paths
         found = False
         location = self.start
+        print(self.start, self.goal)
         while not found:
-            if not h_cup:
-                choice = directions[random.randint(0,3)] # choose a random way to go
-                r,c = choice # get the row and column of the way we moved
-                r, c = location[0] + choice[0], location[1] + choice[1] # going to the new location
-                self.map[r][c] = 1 # this is a valid path
-                h = self.heuristic(r,c)
-                if not self.prev_h == 0:
-    
-                    # see if this h was better than the previous one
-                    if h < self.prev_h:
-                        h_holder +=1
-                    else:
-                        # a worse decision was made
-                        h_holder -=1
+            #print(location)
+            if location == self.goal: # we found the location
+                found = True
+                break
 
-                    if h_holder <= -2:
-                        h_cup = True
-                self.prev_h = h
+            if not h_cup:
+                random.shuffle(directions)  # shuffle for random movement
+                for choice in directions:
+                    r, c = location[0] + choice[0], location[1] + choice[1] # get the new spot on the map we are at
+                    if 0 <= r < self.rows and 0 <= c < self.cols: # dont go out of bounds and dont go through a path already explored
+
+                        self.map[r][c] = 1 # this is a valid path
+                        h = self.heuristic(r,c)
+                        if h < self.prev_h: # its a better heuristic, and thus its closer to the goal
+                            h_holder += 1
+                        else:
+                            h_holder -=1
+                        if h_holder <= -2: # to many bad moves
+                            h_cup = True
+                        location = (r, c)
+                        self.prev_h = h
+                        break
+
+
                 
 
             else:
-                while h_cup < 0:
-                    # go the best way to get to the goal by a factor of 2
-                    for r,c in directions:
-                        h = self.heuristic(r,c)
-                        if h < self.prev_h: # good go this way
-                            self.map[r][c] = 1
-                            h_holder += 0.5
-                            self.prev_h = h
+                best_move = None
+                best_h = float('inf')
+                for choice in directions:
+                    r, c = location[0] + choice[0], location[1] + choice[1]
+                    if 0 <= r < self.rows and 0 <= c < self.cols :
+                        h = self.heuristic(r, c)
+                        if h < best_h:
+                            best_h = h
+                            best_move = (r,c)
 
+                if best_move:
+                    r,c = best_move
+                    self.map[r][c] = 1
+                    h_holder += 0.5
+                    location = (r,c)
+                    self.prev_h = best_h
+                    if location == self.goal:
+                        return
+
+                if h_holder >=0:
+                    h_cup = False
+
+    def get_map(self):
+        self.map[self.start[0]][self.start[1]] = -1
+        self.map[self.goal[0]][self.goal[1]] = -2
+        return self.map
+
+                
+map2 = Map_generator()
+map2 = map2.get_map()
+map2 = np.array(map2)
+start = time.time()
+a_star= A_star(map2, start)
+thread = Thread(target=a_star.run)
+thread.start()
 
             
 
@@ -312,6 +351,7 @@ def update(frame):
     """Update map visualization based on queue data."""
     while not updates_queue.empty():
         type1, cell = updates_queue.get()
+
         r, c = cell
         if type1 == 'explored':
             if map2[r][c] != -1 and map2[r][c] != -2:
