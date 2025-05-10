@@ -10,99 +10,10 @@ import random
 
 
 #Map definition (-1 = start, -2 = goal, 1 = open, 0 = wall)
-map2 = np.array([
-    [-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1],
-    [0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, -2]
-])
-
-# map2 = np.array([
-#     [-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-#     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-#     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-#     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-#     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-#     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2],
-# ])
-
-# map2 = np.array([
-#     [1,1,1,1,1],
-#     [1,1,-1,1,1],
-#     [1,1,1,1,1],
-#     [1,0,0,0,1],
-#     [1,1,-2,1,1]
-# ])
-
-# map2 = np.array([
-#     [-1,1,1,1,1,1,1,1,1,1],
-#     [1,0,0,0,0,0,0,1,0,1],
-#     [1,1,1,1,1,0,0,1,0,1],
-#     [1,0,0,0,1,1,1,1,0,1],
-#     [1,0,0,0,1,0,0,1,0,1],
-#     [1,0,0,0,1,1,1,1,0,1],
-#     [1,0,0,0,0,0,0,1,0,1],
-#     [1,0,0,0,0,0,0,1,1,1],
-#     [1,0,0,0,0,0,0,0,0,0],
-#     [1,1,1,1,1,1,1,1,1,-2]
-# ])
-
-# map2 = np.array([
-#     [1,1,1,1,1],
-#     [1,1,-2,1,1],
-#     [0,0,0,0,1],
-#     [1,1,1,1,1],
-#     [1,1,1,1,1],
-#     [1,1,1,1,1],
-#     [1,1,1,1,1],
-#     [1,1,1,1,1],
-#     [1,1,1,1,1],
-#     [1,1,1,1,1],
-#     [1,1,1,1,1],
-#     [1,1,1,1,1],
-#     [1,1,1,1,1],
-#     [1,1,1,1,1],
-#     [1,1,1,1,1],
-#     [1,1,1,1,1],
-#     [1,1,-1,1,1],
-#     [1,1,1,1,1],
-#     [1,1,1,1,1],
-#     [1,1,1,1,1],
-#     [1,1,0,1,1]
-# ])
 
 
-# Thread-safe updates queue
+
+# thread safe updates queue
 updates_queue = Queue()
 
 class A_star(object):
@@ -154,15 +65,18 @@ class A_star(object):
     def run(self):
         
         open = []
-        heapq.heappush(open, (0, -0, self.start))  # f-value is initially 0 for the start
+        heapq.heappush(open, (0, 0, 0, self.start))  # f-value is initially 0 for the start
         closed = {self.start: 0}
         came_from = {}  # to reconstruct the path
 
         while len(open) > 0:
-            _, _, n = heapq.heappop(open)
+            f, _, _, n = heapq.heappop(open)
+            #print(f)
             updates_queue.put(("explored", n))
-            #time.sleep(0.07)
-            time.sleep(0.01)
+
+
+            time.sleep(0.11)
+            #time.sleep(0.01)
 
             if n == self.goal:
                 self.reconstruct_path(came_from)
@@ -170,6 +84,7 @@ class A_star(object):
             
             cost = closed[n]
             for n_prime in self.generate_neighbhors(n):
+
                 r, c = n_prime
                 # Calculate g(n') and f(n') = g(n') + h(n')
                 g_n = cost + 1  # g(n') = g(n) + 1
@@ -180,9 +95,10 @@ class A_star(object):
                 
                 # Check if the node should be updated in closed or added to open
                 if n_prime not in closed or g_n < closed[n_prime]:
-                    closed[n_prime] = g_n  # Update g-value
+
+                    closed[n_prime] = g_n  # update g-value
                     came_from[n_prime] = n
-                    heapq.heappush(open, (f_n, -g_n, n_prime))  # Use f-value as priority
+                    heapq.heappush(open, (f_n, -g_n, h_n, n_prime))  # use f-value as priority
 
         return (False, -1)
 
@@ -199,7 +115,7 @@ class A_star(object):
         path = path[::-1]
         for i in path:
             updates_queue.put(("path", i))
-            time.sleep(0.01)
+            time.sleep(0.11)
         print(len(path))
         print(time.time() - self.time_start)
         return
@@ -212,8 +128,8 @@ class A_star(object):
 class Map_generator(object):
 
     def __init__(self):
-        self.rows = random.randint(50,200)
-        self.cols = random.randint(50,200)
+        self.rows = random.randint(50,100)
+        self.cols = random.randint(50,100)
         self.prev_h = float('inf') # store the prev heuristic
         self.map = [[0 for _ in range(self.cols)] for _ in range(self.rows)]
         self.make()
@@ -267,7 +183,7 @@ class Map_generator(object):
                             h_holder += 1
                         else:
                             h_holder -=1
-                        if h_holder <= -2: # to many bad moves
+                        if h_holder <= -5: # to many bad moves
                             h_cup = True
                         location = (r, c)
                         self.prev_h = h
@@ -307,6 +223,7 @@ class Map_generator(object):
                 
 map2 = Map_generator()
 map2 = map2.get_map()
+#print(map2)
 map2 = np.array(map2)
 start = time.time()
 a_star= A_star(map2, start)
@@ -337,7 +254,7 @@ norm = mcolors.BoundaryNorm(bounds, cmap.N)
 
 
 
-# Update animation setup
+# update animation setup
 fig, ax = plt.subplots(figsize=(10, 10))
 ax.set_title("A* Pathfinding Visualization")
 img = ax.imshow(map2, cmap=cmap, norm=norm)
